@@ -9,18 +9,23 @@ interface CurrentWeatherProps {
 
 export function CurrentWeather({ data, locationName }: CurrentWeatherProps) {
   const {
-    weather: [currentWeather],
+    weather,
     main: { temp, feels_like, temp_min, temp_max, humidity },
     wind: { speed },
   } = data;
 
-  // Format temperature
+  const currentWeather = weather[0];
+
+  console.log("Current Weather:", currentWeather); // Debugging
+  console.log("Icon code:", currentWeather?.icon);
+
   const formatTemp = (temp: number) => `${Math.round(temp)}°`;
 
   return (
     <Card className="overflow-hidden">
       <CardContent className="p-6">
         <div className="grid gap-6 md:grid-cols-2">
+          {/* Left Side: Text Info */}
           <div className="space-y-4">
             <div className="space-y-2">
               <div className="flex items-center">
@@ -77,19 +82,30 @@ export function CurrentWeather({ data, locationName }: CurrentWeatherProps) {
             </div>
           </div>
 
+          {/* Right Side: Weather Icon */}
           <div className="flex flex-col items-center justify-center">
-            <div className="relative flex aspect-square w-full max-w-[200px] items-center justify-center">
-              <img
-                src={`https://openweathermap.org/img/wn/${currentWeather.icon}@4x.png`}
-                alt={currentWeather.description}
-                className="h-full w-full object-contain"
-              />
-              <div className="absolute bottom-0 text-center">
-                <p className="text-sm font-medium capitalize">
-                  {currentWeather.description}
-                </p>
+            {currentWeather?.icon ? (
+              <div className="relative flex aspect-square w-full max-w-[200px] items-center justify-center">
+                <img
+                  src={`https://openweathermap.org/img/wn/${currentWeather.icon}@4x.png`}
+                  alt={currentWeather.description}
+                  referrerPolicy="no-referrer"
+                  className="h-full w-full object-contain"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = "/fallback-weather.png";
+                  }}
+                />
+                <div className="absolute bottom-0 text-center">
+                  <p className="text-sm font-medium capitalize">
+                    {currentWeather.description}
+                  </p>
+                </div>
               </div>
-            </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Weather icon unavailable
+              </p>
+            )}
           </div>
         </div>
       </CardContent>

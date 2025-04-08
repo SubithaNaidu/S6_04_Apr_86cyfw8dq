@@ -52,7 +52,7 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>5-Day Forecast</CardTitle>
+        <CardTitle>6-Day Forecast</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
