@@ -9,7 +9,7 @@ WeatherWise is a modern and responsive weather forecast application built with *
 - 🔎 Search for any city
 - 🌡️ Displays current weather conditions
 - 📈 Hourly temperature chart (Recharts)
-- 📅 5-day weather forecast
+- 📅 7-day weather forecast
 - 💾 Search history
 - ❤️ Favorite cities management
 - 🌗 Dark / Light mode toggle
